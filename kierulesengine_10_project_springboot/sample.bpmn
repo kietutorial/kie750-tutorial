@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_PrcUtil" structureRef="com.aikiinc.hello.kie.service.util.ProcessUtil" />
+  <itemDefinition id="_message" structureRef="com.aikiinc.hello.kie.sample.Message" />
+  <itemDefinition id="null" structureRef="com.aikiinc.hello.kie.sample.Message" />
+  <process processType="Private" isExecutable="true" id="com.aikiinc.bpmn.hello" name="Hello World" tns:packageName="com.aikiinc.bpmn.hello" >
+
+    <extensionElements>
+     <tns:import name="com.aikiinc.hello.kie.sample.Message" />
+     <tns:import name="com.aikiinc.hello.kie.service.util.ProcessUtil" />
+    </extensionElements>
+    <!-- process variables -->
+    <property id="message" itemSubjectRef="null"/>
+
+    <!-- nodes -->
+    <scriptTask id="_2" name="Set GoodBye" scriptFormat="http://www.java.com/java" >
+      <script>ProcessUtil.showTask(kcontext);
+ProcessUtil.showFact(message);
+
+Message message2 = (Message) message;
+message2.setMessage("Goodbye Cruel World");
+message2.setStatus( Message.GOODBYE );
+ProcessUtil.showFact(message2);
+
+message =  message2;
+</script>
+    </scriptTask>
+    <startEvent id="_1"  isInterrupting="true">
+    </startEvent>
+    <endEvent id="_3" >
+        <terminateEventDefinition />
+    </endEvent>
+    <scriptTask id="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" name="Begin" scriptFormat="http://www.java.com/java" >
+      <script>ProcessUtil.showTaskBegin(kcontext);
+ProcessUtil.showFact(message);
+
+ProcessUtil.showMessage("Message: " + message.getMessage());
+ProcessUtil.showMessage("Status: " + message.getStatus());</script>
+    </scriptTask>
+    <scriptTask id="180933af-5dc8-4941-b921-e74356880c0f" name="End" scriptFormat="http://www.java.com/java" >
+      <script>ProcessUtil.showTaskEnd(kcontext);
+ProcessUtil.showFact(message);</script>
+    </scriptTask>
+    <exclusiveGateway id="4254e06d-d837-4ad0-9476-9b4be34e0b0a" name="Is Hello" gatewayDirection="Diverging" >
+    </exclusiveGateway>
+    <exclusiveGateway id="1d4d37c9-32db-4c43-97d6-b26a7fc69b00" name="Gateway" gatewayDirection="Converging" >
+    </exclusiveGateway>
+
+    <!-- connections -->
+    <sequenceFlow id="4254e06d-d837-4ad0-9476-9b4be34e0b0a-_2" sourceRef="4254e06d-d837-4ad0-9476-9b4be34e0b0a" targetRef="_2" name="true" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return true;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="180933af-5dc8-4941-b921-e74356880c0f-_3" sourceRef="180933af-5dc8-4941-b921-e74356880c0f" targetRef="_3" />
+    <sequenceFlow id="_1-3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" sourceRef="_1" targetRef="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" />
+    <sequenceFlow id="1d4d37c9-32db-4c43-97d6-b26a7fc69b00-180933af-5dc8-4941-b921-e74356880c0f" sourceRef="1d4d37c9-32db-4c43-97d6-b26a7fc69b00" targetRef="180933af-5dc8-4941-b921-e74356880c0f" />
+    <sequenceFlow id="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4-4254e06d-d837-4ad0-9476-9b4be34e0b0a" sourceRef="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" targetRef="4254e06d-d837-4ad0-9476-9b4be34e0b0a" />
+    <sequenceFlow id="_2-1d4d37c9-32db-4c43-97d6-b26a7fc69b00" sourceRef="_2" targetRef="1d4d37c9-32db-4c43-97d6-b26a7fc69b00" />
+    <sequenceFlow id="4254e06d-d837-4ad0-9476-9b4be34e0b0a-1d4d37c9-32db-4c43-97d6-b26a7fc69b00" sourceRef="4254e06d-d837-4ad0-9476-9b4be34e0b0a" targetRef="1d4d37c9-32db-4c43-97d6-b26a7fc69b00" name="false" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return false;</conditionExpression>
+    </sequenceFlow>
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.aikiinc.bpmn.hello" >
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="323" y="156" width="120" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="17" y="155" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="16" y="272" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" >
+        <dc:Bounds x="102" y="156" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="180933af-5dc8-4941-b921-e74356880c0f" >
+        <dc:Bounds x="99" y="273" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="4254e06d-d837-4ad0-9476-9b4be34e0b0a" >
+        <dc:Bounds x="221" y="156" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="1d4d37c9-32db-4c43-97d6-b26a7fc69b00" >
+        <dc:Bounds x="221" y="274" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="4254e06d-d837-4ad0-9476-9b4be34e0b0a-_2" >
+        <di:waypoint x="245" y="180" />
+        <di:waypoint x="383" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="180933af-5dc8-4941-b921-e74356880c0f-_3" >
+        <di:waypoint x="139" y="297" />
+        <di:waypoint x="40" y="296" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" >
+        <di:waypoint x="41" y="179" />
+        <di:waypoint x="142" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="1d4d37c9-32db-4c43-97d6-b26a7fc69b00-180933af-5dc8-4941-b921-e74356880c0f" >
+        <di:waypoint x="245" y="298" />
+        <di:waypoint x="139" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4-4254e06d-d837-4ad0-9476-9b4be34e0b0a" >
+        <di:waypoint x="142" y="180" />
+        <di:waypoint x="245" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-1d4d37c9-32db-4c43-97d6-b26a7fc69b00" >
+        <di:waypoint x="383" y="180" />
+        <di:waypoint x="384" y="298" />
+        <di:waypoint x="245" y="298" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="4254e06d-d837-4ad0-9476-9b4be34e0b0a-1d4d37c9-32db-4c43-97d6-b26a7fc69b00" >
+        <di:waypoint x="245" y="180" />
+        <di:waypoint x="245" y="298" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

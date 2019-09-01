@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_PrcUtil" structureRef="com.kie.service.util.ProcessUtil" />
+  <itemDefinition id="_message" structureRef="com.sample.Message" />
+  <itemDefinition id="null" structureRef="com.sample.Message" />
+  <process processType="Private" isExecutable="true" id="com.sample.bpmn.hello" name="Hello World" tns:packageName="com.sample.bpmn.hello" >
+
+    <extensionElements>
+     <tns:import name="com.kie.service.util.ProcessUtil" />
+     <tns:import name="com.sample.Message" />
+     <tns:import name="org.kie.api.runtime.process.CaseAssignment" />
+     <tns:import name="org.kie.api.runtime.process.CaseData" />
+    </extensionElements>
+    <!-- process variables -->
+    <property id="message" itemSubjectRef="null"/>
+
+    <!-- nodes -->
+    <scriptTask id="_2" name="Hello" scriptFormat="http://www.java.com/java" >
+      <script>ProcessUtil.showTask(kcontext);
+ProcessUtil.showFact(message);
+
+String msg = message.getMessage() + ",  " + kcontext.getNodeInstance().getNodeName() + ": added its message";
+message.setMessage(msg);
+ProcessUtil.showFact(message);
+</script>
+    </scriptTask>
+    <startEvent id="_1"  isInterrupting="true">
+    </startEvent>
+    <endEvent id="_3" >
+        <terminateEventDefinition />
+    </endEvent>
+    <scriptTask id="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" name="Begin" >
+      <script>ProcessUtil.showTaskBegin(kcontext);
+ProcessUtil.showFact(message);
+
+String msg = kcontext.getNodeInstance().getNodeName() + ": added its message";
+message.setMessage(msg);
+ProcessUtil.showFact(message);
+</script>
+    </scriptTask>
+    <scriptTask id="180933af-5dc8-4941-b921-e74356880c0f" name="End" scriptFormat="http://www.java.com/java" >
+      <script>ProcessUtil.showTaskEnd(kcontext);
+
+ProcessUtil.showFact(message);</script>
+    </scriptTask>
+
+    <!-- connections -->
+    <sequenceFlow id="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4-_2" sourceRef="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" targetRef="_2" />
+    <sequenceFlow id="180933af-5dc8-4941-b921-e74356880c0f-_3" sourceRef="180933af-5dc8-4941-b921-e74356880c0f" targetRef="_3" />
+    <sequenceFlow id="_1-3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" sourceRef="_1" targetRef="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" />
+    <sequenceFlow id="_2-180933af-5dc8-4941-b921-e74356880c0f" sourceRef="_2" targetRef="180933af-5dc8-4941-b921-e74356880c0f" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello" >
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="214" y="157" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="17" y="155" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="437" y="154" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" >
+        <dc:Bounds x="102" y="156" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="180933af-5dc8-4941-b921-e74356880c0f" >
+        <dc:Bounds x="322" y="155" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="3dcd8fc1-a982-4a3b-b6e8-2324d97758d4-_2" >
+        <di:waypoint x="142" y="180" />
+        <di:waypoint x="254" y="181" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="180933af-5dc8-4941-b921-e74356880c0f-_3" >
+        <di:waypoint x="362" y="179" />
+        <di:waypoint x="461" y="178" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-3dcd8fc1-a982-4a3b-b6e8-2324d97758d4" >
+        <di:waypoint x="41" y="179" />
+        <di:waypoint x="142" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-180933af-5dc8-4941-b921-e74356880c0f" >
+        <di:waypoint x="254" y="181" />
+        <di:waypoint x="362" y="179" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

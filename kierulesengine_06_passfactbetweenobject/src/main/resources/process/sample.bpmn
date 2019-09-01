@@ -13,13 +13,13 @@
              xmlns:tns="http://www.jboss.org/drools">
 
   <itemDefinition id="_PrcUtil" structureRef="com.kie.service.util.ProcessUtil" />
-  <itemDefinition id="_message" structureRef="com.sample.Message" />
-  <itemDefinition id="null" structureRef="com.sample.Message" />
-  <process processType="Private" isExecutable="true" id="com.sample.bpmn.hello" name="Hello World" tns:packageName="com.sample.bpmn.hello" >
+  <itemDefinition id="_message" structureRef="com.aikiinc.Message" />
+  <itemDefinition id="null" structureRef="com.aikiinc.Message" />
+  <process processType="Private" isExecutable="true" id="com.aikiinc.bpmn.hello" name="Hello World" tns:packageName="com.aikiinc.bpmn.hello" >
 
     <extensionElements>
      <tns:import name="com.kie.service.util.ProcessUtil" />
-     <tns:import name="com.sample.Message" />
+     <tns:import name="com.aikiinc.Message" />
      <tns:import name="org.kie.api.runtime.process.CaseAssignment" />
      <tns:import name="org.kie.api.runtime.process.CaseData" />
     </extensionElements>
@@ -65,7 +65,7 @@ ProcessUtil.showFact(message);</script>
   </process>
 
   <bpmndi:BPMNDiagram>
-    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello" >
+    <bpmndi:BPMNPlane bpmnElement="com.aikiinc.bpmn.hello" >
       <bpmndi:BPMNShape bpmnElement="_2" >
         <dc:Bounds x="214" y="157" width="80" height="48" />
       </bpmndi:BPMNShape>

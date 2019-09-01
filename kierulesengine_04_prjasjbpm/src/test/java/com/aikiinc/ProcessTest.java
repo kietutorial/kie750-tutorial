@@ -1,4 +1,4 @@
-package com.sample;
+package com.aikiinc;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +21,7 @@ public class ProcessTest {
 			Message message = new Message();
 			message.setMessage("Hello World");
 			message.setStatus(Message.HELLO);
+			//message.setStatus(Message.GOODBYE);
 
 			ProcessUtil.showMessage("Init fact: message: " + message);
 

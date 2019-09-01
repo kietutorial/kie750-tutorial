@@ -12,7 +12,7 @@ public class ProcessTest {
 		try {
 			KieSession kSession = KieUtils.getKieSession("ksession-process");
 
-			KieUtils.fireProcess(kSession, "com.sample.bpmn.hello");
+			KieUtils.fireProcess(kSession, "com.aikiinc.bpmn.hello");
 		} catch (Throwable t) {
 			t.printStackTrace();
 		}

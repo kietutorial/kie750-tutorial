@@ -2,8 +2,9 @@ package com.sample;
 
 import org.junit.Test;
 import org.kie.api.runtime.KieSession;
+
+import com.aikiinc.Message;
 import com.kie.service.util.KieUtils;
-import com.sample.Message;
 
 public class DroolsRuleTest {
 

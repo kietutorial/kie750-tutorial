@@ -1,6 +1,6 @@
-package com.sample
+package com.aikiinc
  
-import com.sample.DroolsTest.Message;
+import com.aikiinc.DroolsTest.Message;
  
 rule "Hello World"
     when

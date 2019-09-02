@@ -1,0 +1,9 @@
+#!/bin/sh
+
+CMD="mvncleanins"
+
+echo .
+echo $CMD
+echo .
+
+$CMD

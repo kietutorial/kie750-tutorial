@@ -1,0 +1,5 @@
+#!/bin/sh
+
+. mvncleanins
+
+./mvnw spring-boot:run

@@ -1,0 +1,10 @@
+entity Message {
+	message String,
+	status StatusType
+}
+
+enum StatusType {
+	HELLO, GOODBYE
+}
+
+
